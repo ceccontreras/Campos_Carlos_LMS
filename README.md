@@ -17,29 +17,3 @@ Features
 * **Remove Books**: Remove a book using its unique ID.
 * **List Books**: View all books in the library.
 
-How to Run
-----------
-
-1. **Clone the repository**:
-
-    ```bash
-    git clone https://github.com/yourusername/library-management-system.git
-    ```
-
-2. **Compile the program**:
-
-    ```bash
-    javac Main.java
-    ```
-
-3. **Run the program**:
-
-    ```bash
-    java Main
-    ```
-
-Example Book File
-------------------
-
-The book file should look like this:
-
