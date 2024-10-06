@@ -1,15 +1,15 @@
 /**
- * Main class for the Library Management System (LMS)
+ * Main class for the Library Management System (LMS).
+ *  
  * Name: Carlos Campos
  * Course: Software Development
- * Date: 2024-09-07
+ * Date: September 22, 2024
  *
  * This class contains the main method that runs the Library Management System.
- * The system allows users to add books to the library from a file, remove a book
- * by its ID, and list all books in the library. The program runs as a console-based
- * application with a simple menu-driven interface.
+ * The system allows users to add books to the library from a file, remove a book by its ID, barcode, or title,
+ * check in or check out a book, and list all books in the library. The program runs as a console-based application
+ * with a simple menu-driven interface.
  */
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -18,62 +18,54 @@ public class Main {
         Library library = new Library();
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            System.out.println("\nLibrary Management System");
-            System.out.println("1. Add books from file");
-            System.out.println("2. Remove a book by ID");
-            System.out.println("3. List all books");
-            System.out.println("4. Exit");
+        // Get file path from the user and load books into the library
+        System.out.print("Enter file path to load books: ");
+        String filePath = scanner.nextLine();
+        library.addBooksFromFile(filePath);
+        System.out.println("Books added from file. Printing the database:");
+        library.listBooks();
 
-            int choice = -1;
-            // Loop to ensure valid integer input for menu choice
-            while (choice == -1) {
-                System.out.print("Enter your choice: ");
-                try {
-                    choice = scanner.nextInt();
-                } catch (InputMismatchException e) {
-                    // Handle non-integer inputs
-                    System.out.println("Invalid input. Please enter a number between 1 and 4.");
-                    scanner.nextLine(); // Clear the invalid input from the scanner buffer
-                }
-            }
-
-            // Switch case to handle different menu options
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter file path: ");
-                    scanner.nextLine();
-                    String filePath = scanner.nextLine();
-                    library.addBooksFromFile(filePath);
-                    break;
-                case 2:
-                    System.out.print("Enter book ID to remove: ");
-                    int id = -1;
-                    // Loop to ensure valid integer input for book ID
-                    while (id == -1) {
-                        try {
-                            id = scanner.nextInt();
-                        } catch (InputMismatchException e) {
-                            System.out.println("Invalid input. Please enter a valid book ID (integer).");
-                            scanner.nextLine(); // Clear invalid input
-                        }
-                    }
-                    if (library.removeBookById(id)) {
-                        System.out.println("Book removed successfully.");
-                    } else {
-                        System.out.println("Book not found.");
-                    }
-                    break;
-                case 3:
-                    library.listBooks();
-                    break;
-                case 4:
-                    System.out.println("Exiting...");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
+        // Remove a book by Barcode
+        System.out.print("Enter barcode to remove a book: ");
+        String barcode = scanner.nextLine();
+        if (library.removeBookByBarcode(barcode)) {
+            System.out.println("Book removed successfully.");
+        } else {
+            System.out.println("Book not found.");
         }
+        library.listBooks();
+
+        // Remove a book by Title
+        System.out.print("Enter title to remove a book: ");
+        String titleToRemove = scanner.nextLine();
+        if (library.removeBookByTitle(titleToRemove)) {
+            System.out.println("Book removed successfully.");
+        } else {
+            System.out.println("Book not found.");
+        }
+        library.listBooks();
+
+        // Check out a book by Title
+        System.out.print("Enter title to check out a book: ");
+        String titleToCheckout = scanner.nextLine();
+        if (library.checkOutBook(titleToCheckout)) {
+            System.out.println("Book checked out successfully.");
+        } else {
+            System.out.println("Book not found or already checked out.");
+        }
+        library.listBooks();
+
+        // Check in a book by Title
+        System.out.print("Enter title to check in a book: ");
+        String titleToCheckIn = scanner.nextLine();
+        if (library.checkInBook(titleToCheckIn)) {
+            System.out.println("Book checked in successfully.");
+        } else {
+            System.out.println("Book not found or already checked in.");
+        }
+        library.listBooks();
+
+        // Exit the program
+        scanner.close();
     }
 }
