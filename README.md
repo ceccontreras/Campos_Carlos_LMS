@@ -1,4 +1,5 @@
 Library Management System (LMS)
+===============================
 Project Overview
 The Library Management System (LMS) is a console-based application developed in Java that allows users to manage a library's book collection. The system supports adding, removing, checking out, and checking in books from a collection, all through a simple text-based interface. Future versions will include a GUI and integration with a SQLite database for persistent storage.
 
